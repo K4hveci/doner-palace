@@ -1728,9 +1728,22 @@ body {
 
 /* SCALE DOWN FOR PHONES IN LANDSCAPE MODE (Max height 600px) */
 @media (max-height: 600px) {
+    #game-container {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100vh !important;
+        position: relative !important;
+    }
+
     .hud-bar {
         height: 45px;
         padding: 0 10px;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 999 !important;
+        flex: none !important;
     }
     .logo { 
         font-size: 1.1rem; 
@@ -1764,7 +1777,8 @@ body {
     }
     
     .play-area-top { 
-        flex: 3.5; 
+        flex: none !important; 
+        height: 220px !important;
     }
     .spit-station { 
         padding: 5px; 
@@ -1866,9 +1880,12 @@ body {
     }
     
     .play-area-bottom { 
-        flex: 5.5; 
+        flex: none !important; 
+        height: auto !important;
+        min-height: 400px !important;
         padding: 5px; 
         gap: 5px; 
+        padding-bottom: 50px !important;
     }
     .fridge-wrapper { 
         padding: 4px; 
