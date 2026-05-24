@@ -1657,3 +1657,356 @@ body {
 .hidden {
     display: none !important;
 }
+
+/* ==========================================================================
+   6. MOBILE RESPONSIVE OVERLAY & OPTIMIZATION
+   ========================================================================== */
+
+#rotation-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: radial-gradient(circle, #3e2723 0%, #1a0f0d 100%);
+    z-index: 99999;
+    color: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.rotation-message {
+    animation: float 2s ease-in-out infinite alternate;
+}
+
+.rotation-phone {
+    font-size: 80px;
+    margin-bottom: 10px;
+    display: inline-block;
+    animation: rotate-phone 1.5s ease-in-out infinite alternate;
+}
+
+.rotation-arrows {
+    font-size: 30px;
+    color: var(--neon-yellow);
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+
+.rotation-message h2 {
+    font-family: var(--font-cozy);
+    font-size: 2.2rem;
+    color: var(--neon-yellow);
+    margin-bottom: 10px;
+}
+
+.rotation-message p {
+    font-family: var(--font-ui);
+    font-size: 1.1rem;
+    max-width: 320px;
+    line-height: 1.4;
+}
+
+@keyframes rotate-phone {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(90deg); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
+
+/* Show warning on vertical/portrait mobile screens */
+@media (orientation: portrait) and (max-width: 900px) {
+    #rotation-overlay {
+        display: flex;
+    }
+}
+
+/* SCALE DOWN FOR PHONES IN LANDSCAPE MODE (Max height 600px) */
+@media (max-height: 600px) {
+    .hud-bar {
+        height: 45px;
+        padding: 0 10px;
+    }
+    .logo { 
+        font-size: 1.1rem; 
+    }
+    .day-counter { 
+        padding: 4px 8px; 
+        font-size: 0.8rem; 
+    }
+    .stars-display { 
+        padding: 4px 8px; 
+        font-size: 0.8rem; 
+    }
+    .icon-btn { 
+        padding: 4px 8px; 
+        font-size: 0.9rem; 
+    }
+    
+    .ticket-rail { 
+        height: 110px; 
+        gap: 8px; 
+    }
+    .receipt-ticket { 
+        width: 90px; 
+        padding: 6px 4px; 
+        font-size: 8px; 
+    }
+    .receipt-ticket.expanded { 
+        width: 150px; 
+        font-size: 9px; 
+        transform: scale(1.2) translateY(15px); 
+    }
+    
+    .play-area-top { 
+        flex: 3.5; 
+    }
+    .spit-station { 
+        padding: 5px; 
+    }
+    .spit-wrapper { 
+        width: 100px; 
+    }
+    .heater-glow { 
+        height: 130px; 
+        width: 70px; 
+    }
+    .spit-skewer { 
+        bottom: 40px; 
+    }
+    .spit-meat { 
+        height: 110px; 
+        width: 55px; 
+    }
+    .shave-zone { 
+        height: 120px; 
+        width: 70px; 
+    }
+    .meat-tray { 
+        height: 32px; 
+        width: 85px; 
+        margin-top: 2px; 
+    }
+    .tray-label { 
+        font-size: 8px; 
+    }
+    .knife-stand { 
+        height: 120px; 
+        width: 32px; 
+        padding: 4px 0; 
+    }
+    .doner-knife { 
+        height: 65px; 
+        width: 6px; 
+    }
+    .doner-knife::after { 
+        height: 14px; 
+        width: 8px; 
+        bottom: -14px; 
+        left: -1px; 
+    }
+    
+    .customer-station { 
+        padding-bottom: 5px; 
+    }
+    .speech-bubble-container { 
+        top: 5px; 
+    }
+    .speech-bubble { 
+        font-size: 0.75rem; 
+        padding: 6px 12px; 
+        max-height: 60px; 
+        border-width: 2px; 
+    }
+    .customer-area { 
+        height: 100px; 
+        width: 120px; 
+    }
+    .customer { 
+        height: 95px; 
+        width: 80px; 
+    }
+    .customer-head { 
+        height: 45px; 
+        width: 45px; 
+        left: 17px; 
+        top: 10px; 
+        border-width: 2px; 
+    }
+    .customer-eyes { 
+        top: 15px; 
+        padding: 0 8px; 
+    }
+    .customer-eye { 
+        height: 5px; 
+        width: 5px; 
+    }
+    .customer-mouth { 
+        top: 25px; 
+        left: 15px; 
+        width: 15px; 
+        border-bottom-width: 2px; 
+    }
+    .customer-hair { 
+        height: 22px; 
+        width: 60px; 
+        left: 10px; 
+        border-width: 2px; 
+    }
+    .customer-body { 
+        height: 45px; 
+        width: 70px; 
+        left: 5px; 
+        border-width: 2px; 
+    }
+    
+    .play-area-bottom { 
+        flex: 5.5; 
+        padding: 5px; 
+        gap: 5px; 
+    }
+    .fridge-wrapper { 
+        padding: 4px; 
+    }
+    .fridge-label { 
+        font-size: 8px; 
+        margin-top: 2px; 
+    }
+    .drink-bottle { 
+        height: 38px; 
+        width: 18px; 
+        border-width: 1px; 
+    }
+    .drink-label { 
+        font-size: 5px; 
+        transform: scale(0.7); 
+    }
+    
+    .prep-workspace { 
+        flex: 6; 
+    }
+    .prep-board { 
+        padding: 5px; 
+    }
+    .prep-base-container { 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+    }
+    .empty-board-msg { 
+        font-size: 0.8rem; 
+    }
+    
+    /* Scale down active assembly bases to fit phone heights */
+    .food-base.wrap-base { 
+        transform: scale(0.75); 
+    }
+    .food-base.sandwich-base { 
+        transform: scale(0.75); 
+    }
+    .food-base.plate-base { 
+        transform: scale(0.7); 
+    }
+    
+    .base-selector-bar { 
+        gap: 4px; 
+    }
+    .base-btn { 
+        padding: 4px 8px; 
+        font-size: 0.75rem; 
+        border-radius: 6px; 
+    }
+    
+    .station-right { 
+        flex: 4.5; 
+    }
+    .ingredients-grid { 
+        gap: 4px; 
+        padding: 4px; 
+    }
+    .ingredient-box { 
+        padding: 2px; 
+        border-radius: 8px; 
+    }
+    .ing-visual { 
+        height: 30px; 
+        width: 45px; 
+    }
+    .ing-label { 
+        font-size: 8px; 
+    }
+    .lock-indicator { 
+        font-size: 7px; 
+        padding: 2px 4px; 
+    }
+    
+    .control-tray { 
+        padding: 4px; 
+    }
+    .tray-container { 
+        height: 60px; 
+    }
+    .serving-tray { 
+        height: 45px; 
+    }
+    .served-food-item { 
+        font-size: 20px; 
+    }
+    .served-drink-item { 
+        transform: scale(0.7); 
+    }
+    .tray-empty-slot-msg { 
+        font-size: 8px; 
+    }
+    .action-buttons { 
+        gap: 4px; 
+    }
+    .action-btn { 
+        padding: 6px; 
+        font-size: 0.75rem; 
+        border-radius: 6px; 
+    }
+    
+    /* Police Overlay Scale down */
+    .police-modal { 
+        width: 320px; 
+        padding: 15px; 
+        border-width: 6px; 
+    }
+    .zabita-character { 
+        font-size: 50px; 
+    }
+    .police-modal h2 { 
+        font-size: 1.2rem; 
+    }
+    .police-modal p { 
+        font-size: 11px; 
+        margin-bottom: 10px; 
+    }
+    .seal-stamp { 
+        font-size: 1.5rem; 
+        margin-bottom: 15px; 
+        border-width: 4px; 
+    }
+    .restart-btn { 
+        padding: 8px; 
+        font-size: 13px; 
+    }
+    
+    .modal-content { 
+        width: 90%; 
+        padding: 15px; 
+    }
+    .modal-content h2 { 
+        font-size: 1.1rem; 
+        margin-bottom: 8px; 
+    }
+    .help-scroll { 
+        font-size: 11px; 
+    }
+}
