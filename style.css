@@ -1722,7 +1722,7 @@ body {
 /* Show warning on vertical/portrait mobile screens */
 @media (orientation: portrait) and (max-width: 900px) {
     #rotation-overlay {
-        display: flex;
+        display: flex !important;
     }
 }
 
