@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Döner Palace - Arcade Dönerci</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for cozy and arcade typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Playpen+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-wrapper">
+        <div id="game-container">
+            <!-- HUD BAR -->
+            <header class="hud-bar">
+                <div class="hud-left">
+                    <span class="logo">🥙 Döner Palace 🥙</span>
+                    <div class="day-counter">GÜN: <span id="day-value">1</span></div>
+                </div>
+                
+                <div class="hud-middle">
+                    <!-- Ticket rail to hold current order receipts -->
+                    <div class="ticket-rail" id="ticket-rail">
+                        <!-- Receipts will be appended here dynamically -->
+                    </div>
+                </div>
+                
+                <div class="hud-right">
+                    <div class="stars-display">
+                        <span class="stars-label">Puan:</span>
+                        <div class="stars-container" id="stars-container">
+                            <!-- Stars will be rendered here dynamically -->
+                        </div>
+                        <span class="stars-numeric" id="stars-numeric">2.5</span>
+                    </div>
+                    <button class="icon-btn" id="help-btn" title="Nasıl Oynanır?">❓</button>
+                    <button class="icon-btn" id="mute-btn" title="Sesi Kapat">🔊</button>
+                </div>
+            </header>
+
+            <!-- UPPER PLAYING AREA (Spits & Customers) -->
+            <div class="play-area-top">
+                <!-- Rotisserie Spit Station -->
+                <div class="spit-station">
+                    <div class="spit-wrapper" id="spit-tavuk-wrapper">
+                        <div class="heater-glow"></div>
+                        <div class="spit-skewer"></div>
+                        <div class="spit-meat tavuk" id="spit-tavuk"></div>
+                        <div class="spit-label">Tavuk Döner</div>
+                        <div class="shave-zone" id="shave-tavuk" data-meat="tavuk"></div>
+                        <div class="meat-tray" id="tray-tavuk" data-meat="tavuk">
+                            <div class="tray-fill" id="fill-tavuk"></div>
+                            <div class="tray-meat-pieces" id="pieces-tavuk"></div>
+                            <div class="tray-label">Al (Tavuk)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Döner Knife Stand -->
+                    <div class="knife-stand" id="knife-stand" title="Döner Bıçağı">
+                        <div class="doner-knife" id="doner-knife"></div>
+                        <div class="knife-label">Bıçak</div>
+                    </div>
+                    
+                    <div class="spit-wrapper" id="spit-et-wrapper">
+                        <div class="heater-glow"></div>
+                        <div class="spit-skewer"></div>
+                        <div class="spit-meat et" id="spit-et"></div>
+                        <div class="spit-label">Et Döner</div>
+                        <div class="shave-zone" id="shave-et" data-meat="et"></div>
+                        <div class="meat-tray" id="tray-et" data-meat="et">
+                            <div class="tray-fill" id="fill-et"></div>
+                            <div class="tray-meat-pieces" id="pieces-et"></div>
+                            <div class="tray-label">Al (Et)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Desk -->
+                <div class="customer-station">
+                    <div class="speech-bubble-container" id="speech-bubble-container">
+                        <div class="speech-bubble">
+                            <p id="customer-speech">Merhaba! Hoş geldiniz! Döner Palace yakında hizmetinizde!</p>
+                        </div>
+                        <div class="speech-pointer"></div>
+                    </div>
+                    <div class="customer-area" id="customer-area">
+                        <!-- Procedural SVGs/CSS characters will sit here -->
+                        <div class="customer" id="active-customer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOWER PLAYING AREA (Prep Board, Ingredients, Fridge, Serving Tray) -->
+            <div class="play-area-bottom">
+                <!-- Drink Fridge Area -->
+                <div class="fridge-wrapper" id="fridge-wrapper">
+                    <div class="fridge" id="fridge">
+                        <div class="fridge-shelves">
+                            <div class="fridge-shelf">
+                                <div class="drink-bottle ayran" data-drink="ayran" title="Ayran">
+                                    <div class="drink-label">Ayran</div>
+                                </div>
+                                <div class="drink-bottle cola" data-drink="cola" title="Cola">
+                                    <div class="drink-label">Cola</div>
+                                </div>
+                            </div>
+                            <div class="fridge-shelf">
+                                <div class="drink-bottle salgam" data-drink="salgam" title="Şalgam">
+                                    <div class="drink-label">Şalgam</div>
+                                </div>
+                                <div class="drink-bottle fanta" data-drink="fanta" title="Fanta">
+                                    <div class="drink-label">Fanta</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Glass door -->
+                        <div class="fridge-door" id="fridge-door">
+                            <div class="fridge-handle"></div>
+                            <div class="fridge-glass-shine"></div>
+                        </div>
+                    </div>
+                    <div class="fridge-label">İçecek Dolabı</div>
+                </div>
+
+                <!-- Prep Workspace (Center Board) -->
+                <div class="prep-workspace">
+                    <div class="prep-board" id="prep-board">
+                        <!-- Active base container (lavash, bread, or plate) -->
+                        <div class="prep-base-container" id="prep-base-container">
+                            <div class="empty-board-msg">Başlamak için aşağıdan bir servis türü seçin</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Base Selection Bar -->
+                    <div class="base-selector-bar">
+                        <button class="base-btn" data-base="wrap">🌯 Dürüm (Wrap)</button>
+                        <button class="base-btn" data-base="sandwich">🥖 Ekmek Arası (Sandwich)</button>
+                        <button class="base-btn" data-base="plate">🍽️ Porsiyon (Plate)</button>
+                    </div>
+                </div>
+
+                <!-- Ingredient Station & Action Desk -->
+                <div class="station-right">
+                    <!-- Ingredients Containers Grid -->
+                    <div class="ingredients-grid">
+                        <div class="ingredient-box" data-ing="marul" title="Marul (Lettuce)">
+                            <div class="ing-visual marul"></div>
+                            <div class="ing-label">Marul</div>
+                        </div>
+                        <div class="ingredient-box" data-ing="sogan" title="Soğan (Onion)">
+                            <div class="ing-visual sogan"></div>
+                            <div class="ing-label">Soğan</div>
+                        </div>
+                        <div class="ingredient-box" data-ing="domates" title="Domates (Tomato)">
+                            <div class="ing-visual domates"></div>
+                            <div class="ing-label">Domates</div>
+                        </div>
+                        <div class="ingredient-box" data-ing="tursu" title="Turşu (Pickle)">
+                            <div class="ing-visual tursu"></div>
+                            <div class="ing-label">Turşu</div>
+                        </div>
+                        <div class="ingredient-box" data-ing="patates" title="Patates Kızartması (Fries)">
+                            <div class="ing-visual patates"></div>
+                            <div class="ing-label">Patates</div>
+                        </div>
+                        <!-- Restricted ingredients -->
+                        <div class="ingredient-box locked" id="ing-box-sos" data-ing="sos" title="Dürüm Sosu (Wrap Sauce) - Sadece Dürüm için">
+                            <div class="ing-visual sos"></div>
+                            <div class="ing-label">Özel Sos</div>
+                            <div class="lock-indicator">Sos</div>
+                        </div>
+                        <div class="ingredient-box locked" id="ing-box-ketcap" data-ing="ketcap" title="Ketçap - Ekmek & Porsiyon için">
+                            <div class="ing-visual ketcap"></div>
+                            <div class="ing-label">Ketçap</div>
+                            <div class="lock-indicator">Ketçap</div>
+                        </div>
+                        <div class="ingredient-box locked" id="ing-box-mayonez" data-ing="mayonez" title="Mayonez - Ekmek & Porsiyon için">
+                            <div class="ing-visual mayonez"></div>
+                            <div class="ing-label">Mayonez</div>
+                            <div class="lock-indicator">Mayonez</div>
+                        </div>
+                        <div class="ingredient-box locked" id="ing-box-pilav" data-ing="pilav" title="Pilav (Rice) - Sadece Porsiyon için">
+                            <div class="ing-visual pilav"></div>
+                            <div class="ing-label">Pilav</div>
+                            <div class="lock-indicator">Pilav</div>
+                        </div>
+                    </div>
+
+                    <!-- Serving & Control Tray -->
+                    <div class="control-tray">
+                        <div class="tray-container">
+                            <div class="serving-tray" id="serving-tray">
+                                <div class="tray-slot" id="tray-food-slot">
+                                    <div class="tray-empty-slot-msg">Yemek Yok</div>
+                                </div>
+                                <div class="tray-slot" id="tray-drink-slot">
+                                    <div class="tray-empty-slot-msg">İçecek Yok</div>
+                                </div>
+                            </div>
+                            <div class="tray-label">Servis Tepsisi</div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="action-btn" id="wrap-pack-btn" disabled>🌯 Hazırla / Paketle</button>
+                            <button class="action-btn serve-btn" id="serve-btn" disabled>🛎️ Servis Et!</button>
+                            <button class="action-btn trash-btn" id="trash-btn" title="Çöpe At">🗑️ Temizle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POLICE SEAL OVERLAY (GAME OVER) -->
+            <div id="police-overlay" class="hidden">
+                <div class="siren-lights">
+                    <div class="siren-light red"></div>
+                    <div class="siren-light blue"></div>
+                </div>
+                <div class="police-modal">
+                    <div class="zabita-character">👮‍♂️</div>
+                    <h2>DÖNER SALONU KAPATILDI!</h2>
+                    <p>Zabıta ve Polis ekipleri dükkanınızı mühürledi. Müşteri memnuniyeti <strong>0 yıldıza</strong> düştü!</p>
+                    <div class="seal-stamp">MÜHÜRLENDİ</div>
+                    <button class="restart-btn" id="restart-btn">Yeni Dükkan Aç (Tekrar Dene)</button>
+                </div>
+            </div>
+
+            <!-- INSTRUCTIONS MODAL -->
+            <div id="help-modal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close-btn" id="close-help-btn">&times;</span>
+                    <h2>🥙 Döner Palace Nasıl Oynanır? 🥙</h2>
+                    <div class="help-scroll">
+                        <p><strong>Döner Palace'a hoş geldiniz!</strong> Bu arcade oyunda amacınız müşterilerin siparişlerini eksiksiz hazırlayıp yıldızınızı yükseltmektir.</p>
+                        
+                        <h3>1. Siparişleri Alın</h3>
+                        <p>Müşteri geldiğinde üst kısımda bir <strong>Adisyon (Fiş)</strong> belirecektir. Siparişte ne istendiğini, hangi et türünü ve içeceği talep ettiğini kontrol edin.</p>
+                        
+                        <h3>2. Döneri Kesin (En Önemli Kısım!)</h3>
+                        <p>Önce ortadaki <strong>Döner Bıçağına</strong> tıklayarak bıçağı elinize alın. Ardından döner etinin üzerinde <strong>farenizi basılı tutarak aşağı yukarı kaydırın</strong>. Etler kesildikçe alttaki tepsiye dökülecektir.</p>
+                        <p>Tepsiye tıklayarak kesilmiş etleri alın ve hazırlama tahtasındaki dürüm, ekmek veya tabağa tıklayarak yerleştirin. Müşteriler <strong>duble et</strong> isteyebilir, bu durumda tepsiden iki kere et alıp koymanız gerekir!</p>
+                        
+                        <h3>3. Hazırlama Tahtası & Malzemeler</h3>
+                        <p>Önce tabandan bir servis türü seçin (Dürüm, Ekmek Arası, Porsiyon). Sonra malzemelere tıklayarak yemeğe ekleyin:</p>
+                        <ul>
+                            <li><strong>Özel Dürüm Sosu:</strong> Sadece <strong>Dürüm</strong> için kullanılabilir.</li>
+                            <li><strong>Ketçap & Mayonez:</strong> Sadece <strong>Ekmek Arası</strong> ve <strong>Porsiyon</strong> için kullanılabilir.</li>
+                            <li><strong>Pilav:</strong> Sadece <strong>Porsiyon</strong> tabağında taban olarak kullanılabilir.</li>
+                            <li>Marul, Domates, Soğan, Turşu ve Patates her serviste kullanılabilir.</li>
+                        </ul>
+                        
+                        <h3>4. Paketleme & İçecekler</h3>
+                        <p>Malzemeleri yerleştirdikten sonra <strong>"Hazırla / Paketle"</strong> butonuna basın. Yemeğiniz katlanıp tepsiye yerleşecektir.</p>
+                        <p>İçecek dolabını tıklayarak açın ve müşterinin istediği içeceği (Ayran, Kola, Şalgam, Fanta) tepsiye ekleyin.</p>
+                        
+                        <h3>5. Servis Et ve Yıldızları Topla!</h3>
+                        <p><strong>"Servis Et!"</strong> butonuna basın. Doğru siparişler puanınızı yavaşça arttırır (+0.5 yıldız). Yanlışlar ise -1.0 yıldız düşürür.</p>
+                        <p><strong style="color:red;">DİKKAT:</strong> Yıldızınız 0'a düşerse Zabıta dükkanınızı mühürler ve oyun biter!</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>
